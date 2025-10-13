@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IoT Projects</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>IoT Projects</h1>
+    <p class="tagline">Explore innovative IoT project ideas for students and makers</p>
+    <input type="text" id="searchBar" placeholder="Search IoT Projects..." onkeyup="searchProjects()" />
+  </header>
+  <main id="projectList">
+    <div class="category" data-name="Arduino">
+      <h2>Arduino</h2>
+      <p>Smart Dustbin using Ultrasonic Sensor</p>
+    </div>
+    <div class="category" data-name="ESP32">
+      <h2>ESP32</h2>
+      <p>IoT Based Home Automation System</p>
+    </div>
+    <div class="category" data-name="Raspberry Pi">
+      <h2>Raspberry Pi</h2>
+      <p>Weather Monitoring System</p>
+    </div>
+    <div class="category" data-name="Sensors">
+      <h2>Sensors</h2>
+      <p>Smart Air Quality Detector</p>
+    </div>
+    <div class="category" data-name="Automation">
+      <h2>Automation</h2>
+      <p>IoT Based Energy Meter Monitoring</p>
+    </div>
+  </main>
+  <footer>
+    <a href="about.html">About</a> |
+    <a href="contact.html">Contact</a>
+  </footer>
+
+  <script>
+    function searchProjects() {
+      let input = document.getElementById('searchBar').value.toLowerCase();
+      let projects = document.querySelectorAll('.category');
+      projects.forEach(project => {
+        let name = project.getAttribute('data-name').toLowerCase();
+        if (name.includes(input)) {
+          project.style.display = '';
+        } else {
+          project.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
