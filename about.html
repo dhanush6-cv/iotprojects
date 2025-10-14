@@ -3,82 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IoT Project Ideas</title>
+  <title>About - IoT Project Ideas</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="iot-logo.png" />
+  <style>
+    body {
+      background: #f5f7fa;
+      color: #333;
+      font-family: "Poppins", sans-serif;
+    }
+
+    header {
+      text-align: center;
+      background: #0066ff;
+      color: white;
+      padding: 20px;
+    }
+
+    .about-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      line-height: 1.8;
+    }
+
+    h2 {
+      color: #0066ff;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #0066ff;
+      color: white;
+      font-size: 14px;
+      margin-top: 30px;
+    }
+
+    a {
+      color: #0066ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>IoT Project Ideas</h1>
-    <input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()" />
+    <h1>About IoT Project Ideas</h1>
   </header>
 
-  <main class="project-list">
-    <div class="project-item">
-      <h3>Smart Home Automation</h3>
-      <p>Control home appliances via smartphone using ESP32 and Blynk.</p>
-      <button>View More</button>
-    </div>
+  <div class="about-container">
+    <h2>Welcome!</h2>
+    <p>
+      IoT Project Ideas is a free platform created to help students and tech enthusiasts
+      explore innovative Internet of Things (IoT) projects. Our goal is to make learning easy,
+      practical, and inspiring by providing project examples with detailed ideas.
+    </p>
 
-    <div class="project-item">
-      <h3>Accident Detection System</h3>
-      <p>Detect accidents using sensors and send alerts via GSM.</p>
-      <button>View More</button>
-    </div>
+    <h2>Our Mission</h2>
+    <p>
+      To empower engineering students and makers by sharing beginner-friendly and advanced
+      IoT project concepts. Whether you’re building for college, competition, or startup ideas,
+      we’ve got inspiration for you!
+    </p>
 
-    <div class="project-item">
-      <h3>Smart Dustbin</h3>
-      <p>IoT based smart dustbin using ultrasonic sensor and NodeMCU.</p>
-      <button>View More</button>
-    </div>
+    <h2>Contact</h2>
+    <p>
+      Have a suggestion or want to share your own project?<br>
+      📧 Email us: <a href="mailto:iotprojectshelp@gmail.com">iotprojectshelp@gmail.com</a>
+    </p>
 
-    <div class="project-item">
-      <h3>Weather Monitoring System</h3>
-      <p>Real-time weather data logging on ThingSpeak using DHT11.</p>
-      <button>View More</button>
-    </div>
-
-    <div class="project-item">
-      <h3>IoT Smart Parking</h3>
-      <p>Monitor parking slots and guide vehicles using IR sensors.</p>
-      <button>View More</button>
-    </div>
-
-    <div class="project-item">
-      <h3>Air Pollution Monitoring</h3>
-      <p>Measure air quality using MQ135 sensor and display data online.</p>
-      <button>View More</button>
-    </div>
-
-    <div class="project-item">
-      <h3>Smart Agriculture System</h3>
-      <p>Monitor soil moisture and temperature to automate irrigation.</p>
-      <button>View More</button>
-    </div>
-
-    <div class="project-item">
-      <h3>IoT Based Door Lock</h3>
-      <p>Control door access remotely using NodeMCU and Google Firebase.</p>
-      <button>View More</button>
-    </div>
-
-    <div class="project-item">
-      <h3>Smart Energy Meter</h3>
-      <p>Track electricity usage and send alerts when overused.</p>
-      <button>View More</button>
-    </div>
-
-    <div class="project-item">
-      <h3>IoT Health Monitoring</h3>
-      <p>Monitor heartbeat and temperature remotely via IoT dashboard.</p>
-      <button>View More</button>
-    </div>
-  </main>
+    <p><a href="index.html">← Back to Home</a></p>
+  </div>
 
   <footer>
     <p>© 2025 IoT Project Ideas. All rights reserved.</p>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
