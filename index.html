@@ -3,55 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IoT Projects</title>
+  <title>IoT Project Ideas</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="iot-logo.png" />
 </head>
 <body>
   <header>
-    <h1>IoT Projects</h1>
-    <p class="tagline">Explore innovative IoT project ideas for students and makers</p>
-    <input type="text" id="searchBar" placeholder="Search IoT Projects..." onkeyup="searchProjects()" />
+    <h1>IoT Project Ideas</h1>
+    <input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()" />
   </header>
-  <main id="projectList">
-    <div class="category" data-name="Arduino">
-      <h2>Arduino</h2>
-      <p>Smart Dustbin using Ultrasonic Sensor</p>
+
+  <main class="project-list">
+    <div class="project-item">
+      <h3>Smart Home Automation</h3>
+      <p>Control home appliances via smartphone using ESP32 and Blynk.</p>
+      <button>View More</button>
     </div>
-    <div class="category" data-name="ESP32">
-      <h2>ESP32</h2>
-      <p>IoT Based Home Automation System</p>
+
+    <div class="project-item">
+      <h3>Accident Detection System</h3>
+      <p>Detect accidents using sensors and send alerts via GSM.</p>
+      <button>View More</button>
     </div>
-    <div class="category" data-name="Raspberry Pi">
-      <h2>Raspberry Pi</h2>
-      <p>Weather Monitoring System</p>
+
+    <div class="project-item">
+      <h3>Smart Dustbin</h3>
+      <p>IoT based smart dustbin using ultrasonic sensor and NodeMCU.</p>
+      <button>View More</button>
     </div>
-    <div class="category" data-name="Sensors">
-      <h2>Sensors</h2>
-      <p>Smart Air Quality Detector</p>
+
+    <div class="project-item">
+      <h3>Weather Monitoring System</h3>
+      <p>Real-time weather data logging on ThingSpeak using DHT11.</p>
+      <button>View More</button>
     </div>
-    <div class="category" data-name="Automation">
-      <h2>Automation</h2>
-      <p>IoT Based Energy Meter Monitoring</p>
+
+    <div class="project-item">
+      <h3>IoT Smart Parking</h3>
+      <p>Monitor parking slots and guide vehicles using IR sensors.</p>
+      <button>View More</button>
+    </div>
+
+    <div class="project-item">
+      <h3>Air Pollution Monitoring</h3>
+      <p>Measure air quality using MQ135 sensor and display data online.</p>
+      <button>View More</button>
+    </div>
+
+    <div class="project-item">
+      <h3>Smart Agriculture System</h3>
+      <p>Monitor soil moisture and temperature to automate irrigation.</p>
+      <button>View More</button>
+    </div>
+
+    <div class="project-item">
+      <h3>IoT Based Door Lock</h3>
+      <p>Control door access remotely using NodeMCU and Google Firebase.</p>
+      <button>View More</button>
+    </div>
+
+    <div class="project-item">
+      <h3>Smart Energy Meter</h3>
+      <p>Track electricity usage and send alerts when overused.</p>
+      <button>View More</button>
+    </div>
+
+    <div class="project-item">
+      <h3>IoT Health Monitoring</h3>
+      <p>Monitor heartbeat and temperature remotely via IoT dashboard.</p>
+      <button>View More</button>
     </div>
   </main>
+
   <footer>
-    <a href="about.html">About</a> |
-    <a href="contact.html">Contact</a>
+    <p>© 2025 IoT Project Ideas. All rights reserved.</p>
   </footer>
 
-  <script>
-    function searchProjects() {
-      let input = document.getElementById('searchBar').value.toLowerCase();
-      let projects = document.querySelectorAll('.category');
-      projects.forEach(project => {
-        let name = project.getAttribute('data-name').toLowerCase();
-        if (name.includes(input)) {
-          project.style.display = '';
-        } else {
-          project.style.display = 'none';
-        }
-      });
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
