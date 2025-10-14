@@ -79,19 +79,5 @@ footer {
   color: white;
   font-size: 14px;
 }
-.btn-about {
-  display: inline-block;
-  margin-top: 10px;
-  background: white;
-  color: #0066ff;
-  padding: 8px 15px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: 0.3s;
-}
 
-.btn-about:hover {
-  background: #004bcc;
-  color: white;
-}
+  
