@@ -32,6 +32,56 @@
 }
 </style>
     <input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()" />
+<div class="profile-container">
+  <img src="images/profile.png" alt="Profile" class="profile-pic">
+  <div class="profile-menu">
+    <a href="register.html">Register</a>
+    <a href="login.html">Already Registered?</a>
+  </div>
+</div>
+<style>
+.profile-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #0033cc;
+  object-fit: cover;
+}
+
+.profile-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
+  margin-top: 10px;
+  z-index: 10;
+}
+
+.profile-menu a {
+  display: block;
+  padding: 8px 15px;
+  color: #0033cc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.profile-menu a:hover {
+  background: #f0f0f0;
+}
+
+.profile-container:hover .profile-menu {
+  display: block;
+}
+</style>
   </header>
 
   <main class="project-list">
