@@ -33,28 +33,32 @@
 </style>
     <input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()" />
 
- <div class="profile-container">
+ <<div class="profile-container">
     <img src="images/profile.png" alt="Profile" class="profile-pic">
     <div class="profile-menu">
       <a href="register.html">Register</a>
       <a href="login.html">Already Registered?</a>
     </div>
-  </div>
-<style>
+</div>
 
-/* 🔵 Profile Icon section */
+<style>
+/* 🔵 Profile Icon section - TOP RIGHT POSITION */
 .profile-container {
-  position: relative;
+  position: absolute;    /* 👈 CHANGE: absolute pannu */
+  top: 20px;            /* 👈 Top-la irukum */
+  right: 20px;          /* 👈 Right side-la irukum */
   display: inline-block;
+  z-index: 1000;        /* 👈 Always front-la irukum */
 }
 
 .profile-pic {
-  width: 45px;
-  height: 50px;
-  border-radius: 100%;   /* 👈 makes it perfect circle */
-  object-fit: cover;
+  width: 50px;          /* 👈 Width & height equal pannu */
+  height: 50px;         /* 👈 Perfect circle-ku equal size */
+  border-radius: 50%;   /* 👈 PERFECT CIRCLE - 50% pannu */
+  object-fit: cover;    /* 👈 Photo distort aagathu */
   cursor: pointer;
   border: 2px solid #0033cc;
+  display: block;
 }
 
 /* Dropdown menu */
@@ -67,18 +71,24 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   margin-top: 10px;
   z-index: 10;
+  min-width: 180px;     /* 👈 Menu size adjust */
 }
 
 .profile-menu a {
   display: block;
-  padding: 8px 15px;
+  padding: 10px 15px;
   color: #0033cc;
   text-decoration: none;
   font-weight: 500;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-menu a:last-child {
+  border-bottom: none;  /* 👈 Last link-ku border illa */
 }
 
 .profile-menu a:hover {
-  background: #f0f0f0;
+  background: #e6f0ff;
 }
 
 /* 👇 Hover show menu */
