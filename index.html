@@ -31,9 +31,9 @@
   color: white;
 }
 </style>
-    <input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()" />
+    <input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()"/>
 
- <<div class="profile-container">
+ <div class="profile-container">
     <img src="images/profile.png" alt="Profile" class="profile-pic">
     <div class="profile-menu">
       <a href="register.html">Register</a>
@@ -45,15 +45,15 @@
 /* 🔵 Profile Icon section - TOP RIGHT POSITION */
 .profile-container {
   position: absolute;    /* 👈 CHANGE: absolute pannu */
-  top: 20px;            /* 👈 Top-la irukum */
-  right: 20px;          /* 👈 Right side-la irukum */
+  top: 15px;            /* 👈 Top-la irukum */
+  right: 15px;          /* 👈 Right side-la irukum */
   display: inline-block;
   z-index: 1000;        /* 👈 Always front-la irukum */
 }
 
 .profile-pic {
-  width: 50px;          /* 👈 Width & height equal pannu */
-  height: 50px;         /* 👈 Perfect circle-ku equal size */
+  width: 40px;          /* 👈 Width & height equal pannu */
+  height: 40px;         /* 👈 Perfect circle-ku equal size */
   border-radius: 50%;   /* 👈 PERFECT CIRCLE - 50% pannu */
   object-fit: cover;    /* 👈 Photo distort aagathu */
   cursor: pointer;
@@ -71,15 +71,16 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   margin-top: 10px;
   z-index: 10;
-  min-width: 180px;     /* 👈 Menu size adjust */
+  min-width: 160px;     /* 👈 Menu size adjust */
 }
 
 .profile-menu a {
   display: block;
-  padding: 10px 15px;
+  padding: 8px 12px;
   color: #0033cc;
   text-decoration: none;
   font-weight: 500;
+font-size: 14px;
   border-bottom: 1px solid #f0f0f0;
 }
 
