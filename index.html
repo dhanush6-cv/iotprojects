@@ -33,8 +33,10 @@
 </style>
     <input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()"/>
 
- <div class="profile-container">
-    <img src="images/profile.png" alt="Profile" class="profile-pic">
+<div class="profile-container">
+    <div class="profile-pic">
+        <i class="fas fa-user"></i>  <!-- 👈 Icon CIRCLE-ku ullaye -->
+    </div>
     <div class="profile-menu">
       <a href="register.html">Register</a>
       <a href="login.html">Already Registered?</a>
@@ -42,37 +44,40 @@
 </div>
 
 <style>
-/* 🔵 Profile Icon section - TOP RIGHT POSITION */
 .profile-container {
-  position: absolute;    /* 👈 CHANGE: absolute pannu */
-  top: 75px;            /* 👈 Top-la irukum */
-  right: 20px;          /* 👈 Right side-la irukum */
+  position: absolute;
+  top: 75px;
+  right: 20px;
   display: inline-block;
-  z-index: 1000;        /* 👈 Always front-la irukum */
+  z-index: 1000;
 }
 
 .profile-pic {
-  width: 35px;          /* 👈 Width & height equal pannu */
-  height: 35px;         /* 👈 Perfect circle-ku equal size */
-  border-radius: 50%;   /* 👈 PERFECT CIRCLE - 50% pannu */
-  object-fit: cover;    /* 👈 Photo distort aagathu */
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;     /* 👈 CIRCLE SHAPE */
+  background: #0033cc;    /* 👈 CIRCLE BACKGROUND COLOR */
+  color: white;           /* 👈 ICON COLOR */
+  display: flex;
+  align-items: center;    /* 👈 ICON-A CENTER-LA VACHU */
+  justify-content: center; /* 👈 ICON-A CENTER-LA VACHU */
   cursor: pointer;
-  border: 2px solid #0033cc;
-  display: block;
+  border: 1.5px solid #0033cc;
+  font-size: 16px;        /* 👈 ICON SIZE */
 }
 
-/* Dropdown menu */
+/* Baki ella same */
 .profile-menu {
   display: none;
   position: absolute;
   right: 0;
+  top: 100%;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-top:100%;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   margin-top: 5px;
   z-index: 10;
-  min-width: 160px;     /* 👈 Menu size adjust */
+  min-width: 160px;
 }
 
 .profile-menu a {
@@ -80,23 +85,25 @@ top:100%;
   padding: 8px 12px;
   color: #0033cc;
   text-decoration: none;
-  font-weight: 500;
-font-size: 14px;
+  font-size: 14px;
   border-bottom: 1px solid #f0f0f0;
 }
 
 .profile-menu a:last-child {
-  border-bottom: none;  /* 👈 Last link-ku border illa */
+  border-bottom: none;
 }
 
 .profile-menu a:hover {
   background: #e6f0ff;
 }
 
-/* 👇 Hover show menu */
 .profile-container:hover .profile-menu {
   display: block;
 }
+</style>
+
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </style>
   </header>
 
