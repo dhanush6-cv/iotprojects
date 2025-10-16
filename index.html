@@ -1181,5 +1181,37 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+
+
+
+
+<-------declatation------!>
+
+// Mobile camera detection
+cameraOption.addEventListener('click', function() {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Try to open camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                alert('Camera access granted! Taking photo... 📸');
+                // Here you would implement actual photo capture
+                stream.getTracks().forEach(track => track.stop());
+                
+                // For demo, just open file input with camera
+                fileInput.setAttribute('capture', 'environment');
+                fileInput.click();
+            })
+            .catch(function(error) {
+                console.log('Camera error:', error);
+                alert('Camera not available. Opening gallery instead...');
+                fileInput.removeAttribute('capture');
+                fileInput.click();
+            });
+    } else {
+        alert('Camera not supported. Opening gallery...');
+        fileInput.click();
+    }
+});
 </script>
 </html>
