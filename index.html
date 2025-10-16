@@ -878,10 +878,8 @@ color:white;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
        <script src="script.js"></script>
-
 </body>
-
-<!-- ✅ INGA NEW JAVASCRIPT CODE PASTE PANNANU -->
+  
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🔵 JavaScript loaded');
@@ -891,6 +889,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const uploadSidePanel = document.getElementById('uploadSidePanel');
     const closePanel = document.getElementById('closePanel');
     const panelOverlay = document.getElementById('panelOverlay');
+    const profileIcon = document.getElementById('profileIcon');
     
     // Check if elements exist
     if (!profileTrigger) console.error('❌ Profile trigger not found');
@@ -904,6 +903,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('🟢 Profile icon clicked - Opening panel');
         uploadSidePanel.classList.add('active');
         panelOverlay.classList.add('active');
+        loadProfilePicture(); // Load current photo
     });
     
     // ✅ CLOSE PANEL
@@ -932,21 +932,85 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Camera would open here!');
     });
     
-    // ✅ FILE SELECT
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            console.log('🖼 File selected:', file.name);
-            alert('Photo selected: ' + file.name);
-            
-            // Close panel
+    // ✅ REMOVE PHOTO FUNCTION
+    document.getElementById('removeOption').addEventListener('click', function() {
+        if (confirm('Are you sure you want to remove profile picture?')) {
+            localStorage.removeItem('profilePhoto');
+            profileIcon.style.display = 'flex';
+            profileTrigger.innerHTML = '<i class="fas fa-user" id="profileIcon"></i>';
+            document.getElementById('removeOption').style.display = 'none';
+            alert('Profile picture removed! 🗑');
             uploadSidePanel.classList.remove('active');
             panelOverlay.classList.remove('active');
         }
     });
     
+    // ✅ FILE SELECT - MODIFIED VERSION
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            console.log('🖼 File selected:', file.name);
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                
+                // ✅ 1. SAVE TO LOCAL STORAGE
+                localStorage.setItem('profilePhoto', imageUrl);
+                console.log('💾 Saved to localStorage');
+                
+                // ✅ 2. UPDATE PROFILE CIRCLE
+                profileIcon.style.display = 'none';
+                profileTrigger.innerHTML = <img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
+                
+                console.log('🔄 Profile circle updated');
+                
+                // ✅ 3. UPDATE PANEL PREVIEW
+                document.getElementById('currentProfileImage').src = imageUrl;
+                document.getElementById('currentProfileImage').style.display = 'block';
+                document.getElementById('defaultPreview').style.display = 'none';
+                
+                // ✅ 4. SHOW REMOVE OPTION
+                document.getElementById('removeOption').style.display = 'flex';
+                
+                alert('Profile picture updated! ✅');
+                
+                // ✅ 5. CLOSE PANEL
+                uploadSidePanel.classList.remove('active');
+                panelOverlay.classList.remove('active');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    // ✅ LOAD PROFILE PICTURE WHEN PAGE OPENS
+    function loadProfilePicture() {
+        const savedPhoto = localStorage.getItem('profilePhoto');
+        if (savedPhoto) {
+            console.log('📸 Loading saved profile photo');
+            
+            // Update profile circle
+            profileIcon.style.display = 'none';
+            profileTrigger.innerHTML = <img src="${savedPhoto}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
+            
+            // Update panel preview
+            document.getElementById('currentProfileImage').src = savedPhoto;
+            document.getElementById('currentProfileImage').style.display = 'block';
+            document.getElementById('defaultPreview').style.display = 'none';
+            
+            // Show remove option
+            document.getElementById('removeOption').style.display = 'flex';
+        } else {
+            // Hide remove option if no photo
+            document.getElementById('removeOption').style.display = 'none';
+        }
+    }
+    
+    // Load profile picture when page starts
+    loadProfilePicture();
+    
     console.log('✅ All event listeners added');
 });
 </script>
-     
 </html>
