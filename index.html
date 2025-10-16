@@ -851,5 +851,106 @@ color:white;
   </footer>
 
   <script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const profileTrigger = document.getElementById('profileTrigger');
+    const uploadSidePanel = document.getElementById('uploadSidePanel');
+    const closePanel = document.getElementById('closePanel');
+    const panelOverlay = document.getElementById('panelOverlay');
+    const galleryOption = document.getElementById('galleryOption');
+    const cameraOption = document.getElementById('cameraOption');
+    const fileInput = document.getElementById('fileInput');
+    const currentProfileImage = document.getElementById('currentProfileImage');
+    const defaultPreview = document.getElementById('defaultPreview');
+    const profileIcon = document.getElementById('profileIcon');
+
+    // Open side panel when profile is clicked
+    profileTrigger.addEventListener('click', function() {
+        uploadSidePanel.classList.add('active');
+        panelOverlay.classList.add('active');
+        updateCurrentProfilePreview();
+    });
+
+    // Close side panel
+    closePanel.addEventListener('click', closeSidePanel);
+    panelOverlay.addEventListener('click', closeSidePanel);
+
+    function closeSidePanel() {
+        uploadSidePanel.classList.remove('active');
+        panelOverlay.classList.remove('active');
+    }
+
+    // Update current profile preview
+    function updateCurrentProfilePreview() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        
+        if (user && user.profilePhoto) {
+            currentProfileImage.src = user.profilePhoto;
+            currentProfileImage.style.display = 'block';
+            defaultPreview.style.display = 'none';
+        } else {
+            currentProfileImage.style.display = 'none';
+            defaultPreview.style.display = 'flex';
+        }
+    }
+
+    // Gallery option
+    galleryOption.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    // Camera option
+    cameraOption.addEventListener('click', function() {
+        alert('Camera would open here! 📸');
+    });
+
+    // File input change
+    fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                
+                // Update profile picture
+                updateProfilePicture(imageUrl);
+                
+                // Close side panel
+                closeSidePanel();
+                
+                alert('Profile picture updated successfully! ✅');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Update profile picture
+    function updateProfilePicture(imageUrl) {
+        // Update small profile circle
+        profileIcon.style.display = 'none';
+        profileTrigger.innerHTML = `<img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+        
+        // Update local storage
+        const user = JSON.parse(localStorage.getItem('user')) || {};
+        user.profilePhoto = imageUrl;
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        // Update current profile preview
+        updateCurrentProfilePreview();
+    }
+
+    // Escape key to close panel
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeSidePanel();
+        }
+    });
+});
+</script>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
 </html>
