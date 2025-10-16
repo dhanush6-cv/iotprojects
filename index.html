@@ -38,34 +38,57 @@
         <i class="fas fa-user" id="profileIcon"></i>
     </div>
     
-    <!-- Profile Modal (Big View) -->
+    <!-- Profile Modal -->
     <div class="profile-modal" id="profileModal">
         <div class="modal-content">
             <span class="close-btn" id="closeModal">&times;</span>
             
-            <div class="profile-large">
-                <img id="largeProfileImage" src="" alt="Profile">
-                <div class="profile-default" id="defaultProfile">
-                    <i class="fas fa-user"></i>
+            <!-- User Profile Section (Logged In) -->
+            <div class="user-profile-section" id="userProfileSection">
+                <div class="profile-large">
+                    <img id="largeProfileImage" src="" alt="Profile">
+                    <div class="profile-default" id="defaultProfile">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                
+                <h3 id="userNameDisplay">User Name</h3>
+                <p id="userEmailDisplay">user@example.com</p>
+                
+                <div class="profile-actions">
+                    <button class="upload-btn" id="uploadGallery">
+                        <i class="fas fa-image"></i> Upload from Gallery
+                    </button>
+                    <button class="upload-btn" id="uploadCamera">
+                        <i class="fas fa-camera"></i> Take Photo
+                    </button>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
                 </div>
             </div>
             
-            <h3 id="userNameDisplay">User Name</h3>
-            <p id="userEmailDisplay">user@example.com</p>
-            
-            <div class="profile-actions">
-                <button class="upload-btn" id="uploadGallery">
-                    <i class="fas fa-image"></i> Upload from Gallery
-                </button>
-                <button class="upload-btn" id="uploadCamera">
-                    <i class="fas fa-camera"></i> Take Photo
-                </button>
-                <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
+            <!-- Guest Section (Not Logged In) -->
+            <div class="guest-section" id="guestSection">
+                <div class="guest-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h3>Welcome!</h3>
+                <p>Sign in to access all features</p>
+                
+                <div class="auth-actions">
+                    <button class="auth-btn register-btn" id="registerBtn">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                    <button class="auth-btn google-btn" id="googleSignIn">
+                        <i class="fab fa-google"></i> Sign in with Google
+                    </button>
+                    <button class="auth-btn login-btn" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
             </div>
             
-            <!-- Hidden File Input -->
             <input type="file" id="fileInput" accept="image/*" style="display: none;">
         </div>
     </div>
@@ -217,6 +240,96 @@
 .user-info p {
     margin: 5px 0 0;
     color: #666;
+}
+/* Guest Section */
+.guest-section {
+    text-align: center;
+    display: none;
+}
+
+.guest-icon {
+    font-size: 80px;
+    color: #0033cc;
+    margin-bottom: 20px;
+}
+
+.guest-icon i {
+    border: 5px solid #0033cc;
+    border-radius: 50%;
+    padding: 20px;
+}
+
+.auth-actions {
+    margin-top: 20px;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.register-btn {
+    background: #0033cc;
+    color: white;
+}
+
+.register-btn:hover {
+    background: #002299;
+    transform: translateY(-2px);
+}
+
+.google-btn {
+    background: white;
+    color: #333;
+    border: 2px solid #ddd;
+}
+
+.google-btn:hover {
+    background: #f8f9fa;
+    border-color: #0033cc;
+    transform: translateY(-2px);
+}
+
+.login-btn {
+    background: #28a745;
+    color: white;
+}
+
+.login-btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.auth-btn i {
+    font-size: 18px;
+}
+
+/* Show/Hide Sections based on login status */
+.user-profile-section {
+    display: none;
+}
+
+.guest-section {
+    display: block;
+}
+
+.logged-in .user-profile-section {
+    display: block;
+}
+
+.logged-in .guest-section {
+    display: none;
 }
 </style>
 
