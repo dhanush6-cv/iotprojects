@@ -851,105 +851,61 @@ color:white;
     <p>© 2025 IoT Project details. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
-
 
 <!-- Font Awesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
-      <script>
+       <script src="script.js"></script>
+
+<!-- ✅ INGA NEW JAVASCRIPT CODE PASTE PANNANU -->
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const profileTrigger = document.getElementById('profileTrigger');
     const uploadSidePanel = document.getElementById('uploadSidePanel');
-    const closePanel = document.getElementById('closePanel');
     const panelOverlay = document.getElementById('panelOverlay');
-    const galleryOption = document.getElementById('galleryOption');
-    const cameraOption = document.getElementById('cameraOption');
-    const fileInput = document.getElementById('fileInput');
-    const currentProfileImage = document.getElementById('currentProfileImage');
-    const defaultPreview = document.getElementById('defaultPreview');
-    const profileIcon = document.getElementById('profileIcon');
+
+    console.log('Profile Trigger:', profileTrigger);
+    console.log('Upload Panel:', uploadSidePanel);
+    console.log('Panel Overlay:', panelOverlay);
 
     // Open side panel when profile is clicked
     profileTrigger.addEventListener('click', function() {
+        console.log('Profile clicked!');
         uploadSidePanel.classList.add('active');
         panelOverlay.classList.add('active');
-        updateCurrentProfilePreview();
     });
 
     // Close side panel
-    closePanel.addEventListener('click', closeSidePanel);
-    panelOverlay.addEventListener('click', closeSidePanel);
-
-    function closeSidePanel() {
+    document.getElementById('closePanel').addEventListener('click', function() {
         uploadSidePanel.classList.remove('active');
         panelOverlay.classList.remove('active');
-    }
-
-    // Update current profile preview
-    function updateCurrentProfilePreview() {
-        const user = JSON.parse(localStorage.getItem('user'));
-        
-        if (user && user.profilePhoto) {
-            currentProfileImage.src = user.profilePhoto;
-            currentProfileImage.style.display = 'block';
-            defaultPreview.style.display = 'none';
-        } else {
-            currentProfileImage.style.display = 'none';
-            defaultPreview.style.display = 'flex';
-        }
-    }
-
-    // Gallery option - Open file selector
-    galleryOption.addEventListener('click', function() {
-        fileInput.click();
     });
 
-    // Camera option
-    cameraOption.addEventListener('click', function() {
-        alert('Camera would open here! 📸');
+    // Close when clicking overlay
+    panelOverlay.addEventListener('click', function() {
+        uploadSidePanel.classList.remove('active');
+        panelOverlay.classList.remove('active');
     });
 
-    // File input change - When user selects a photo
-    fileInput.addEventListener('change', function(event) {
+    // Gallery functionality
+    document.getElementById('galleryOption').addEventListener('click', function() {
+        document.getElementById('fileInput').click();
+    });
+
+    document.getElementById('fileInput').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            
             reader.onload = function(e) {
-                const imageUrl = e.target.result;
-                
-                // Update small profile circle
-                profileIcon.style.display = 'none';
-                profileTrigger.innerHTML = <img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
-                
-                // Update large profile preview
-                currentProfileImage.src = imageUrl;
-                currentProfileImage.style.display = 'block';
-                defaultPreview.style.display = 'none';
-                
-                // Save to local storage
-                const user = JSON.parse(localStorage.getItem('user')) || {};
-                user.profilePhoto = imageUrl;
-                localStorage.setItem('user', JSON.stringify(user));
-                
-                // Close side panel
-                closeSidePanel();
-                
-                // Show success message
-                alert('Profile picture updated successfully! ✅');
+                localStorage.setItem('profilePhoto', e.target.result);
+                alert('Profile picture updated! ✅');
+                uploadSidePanel.classList.remove('active');
+                panelOverlay.classList.remove('active');
             };
-            
             reader.readAsDataURL(file);
-        }
-    });
-
-    // Escape key to close panel
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeSidePanel();
         }
     });
 });
 </script>
+     
 </html>
