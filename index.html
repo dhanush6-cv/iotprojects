@@ -1058,160 +1058,54 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-
-
-<-----Sample---!>
 // Gallery option - Open file selector
 galleryOption.addEventListener('click', function() {
     fileInput.click();
+});
+
+// Camera option
+cameraOption.addEventListener('click', function() {
+    alert('Camera would open here! 📸');
 });
 
 // File input change - When user selects a photo
 fileInput.addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
-        // Check if file is an image
-        if (!file.type.startsWith('image/')) {
-            alert('Please select an image file! 📸');
-            return;
-        }
-        
-        // Check file size (max 5MB)
-        if (file.size > 5 * 1024 * 1024) {
-            alert('Image size should be less than 5MB! 📏');
-            return;
-        }
-        
         const reader = new FileReader();
         
         reader.onload = function(e) {
             const imageUrl = e.target.result;
             
-            // Update profile picture
-            updateProfilePicture(imageUrl);
+            // Update small profile circle
+            profileIcon.style.display = 'none';
+            profileTrigger.innerHTML = <img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
+            
+            // Update large profile preview
+            currentProfileImage.src = imageUrl;
+            currentProfileImage.style.display = 'block';
+            defaultPreview.style.display = 'none';
+            
+            // Save to local storage
+            const user = JSON.parse(localStorage.getItem('user')) || {};
+            user.profilePhoto = imageUrl;
+            localStorage.setItem('user', JSON.stringify(user));
             
             // Close side panel
             closeSidePanel();
             
             // Show success message
-            showNotification('Profile picture updated successfully! ✅', 'success');
-        };
-        
-        reader.onerror = function() {
-            alert('Error reading the file! Please try again. ❌');
+            alert('Profile picture updated successfully! ✅');
         };
         
         reader.readAsDataURL(file);
     }
 });
 
-// Update profile picture function
-function updateProfilePicture(imageUrl) {
-    // Update small profile circle
-    profileIcon.style.display = 'none';
-    profileTrigger.innerHTML = `<img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
-    
-    // Update large profile preview
-    currentProfileImage.src = imageUrl;
-    currentProfileImage.style.display = 'block';
-    defaultPreview.style.display = 'none';
-    
-    // Update local storage
-    const user = JSON.parse(localStorage.getItem('user')) || {};
-    user.profilePhoto = imageUrl;
-    localStorage.setItem('user', JSON.stringify(user));
-    
-    // Also update users array if exists
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    
-    if (currentUser && currentUser.id) {
-        const userIndex = users.findIndex(u => u.id === currentUser.id);
-        if (userIndex !== -1) {
-            users[userIndex].profilePhoto = imageUrl;
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            // Update current user
-            currentUser.profilePhoto = imageUrl;
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        }
-    }
-}
-
-// Notification function
-function showNotification(message, type) {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'success' ? '#28a745' : '#dc3545'};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 8px;
-        z-index: 3000;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        animation: slideIn 0.3s ease;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
-}
-
-// Add CSS animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
-`;
-document.head.appendChild(style);
 
 
 
 
-
-<-------declatation------!>
-
-// Mobile camera detection
-cameraOption.addEventListener('click', function() {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Try to open camera
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function(stream) {
-                alert('Camera access granted! Taking photo... 📸');
-                // Here you would implement actual photo capture
-                stream.getTracks().forEach(track => track.stop());
-                
-                // For demo, just open file input with camera
-                fileInput.setAttribute('capture', 'environment');
-                fileInput.click();
-            })
-            .catch(function(error) {
-                console.log('Camera error:', error);
-                alert('Camera not available. Opening gallery instead...');
-                fileInput.removeAttribute('capture');
-                fileInput.click();
-            });
-    } else {
-        alert('Camera not supported. Opening gallery...');
-        fileInput.click();
-    }
-});
+   
 </script>
 </html>
