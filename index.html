@@ -76,8 +76,30 @@ top:70px;
                 <div class="option-text">
                     <h4>Take Photo</h4>
                     <p>Use your camera</p>
-
                 </div>
+            </div>
+
+            <!-- ✅ NEW REMOVE OPTION -->
+            <div class="upload-option remove-option" id="removeOption">
+                <div class="option-icon">
+                    <i class="fas fa-trash"></i>
+                </div>
+                <div class="option-text">
+                    <h4>Remove Photo</h4>
+                    <p>Delete current profile picture</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Auth Buttons -->
+        <div class="auth-buttons-bottom">
+            <a href="register.html" class="auth-bottom-btn register-bottom-btn">
+                <i class="fas fa-user-plus"></i> Register
+            </a>
+        </div>
+    </div>
+    
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
 </div>
            <!-- ✅ AUTH BUTTONS - OUTSIDE upload options -->
         <div class="auth-buttons-bottom">
@@ -859,7 +881,6 @@ color:white;
 
 </body>
 
-<!-- ✅ INGA NEW JAVASCRIPT CODE PASTE PANNANU -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const profileTrigger = document.getElementById('profileTrigger');
@@ -867,16 +888,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const panelOverlay = document.getElementById('panelOverlay');
     const profileIcon = document.getElementById('profileIcon');
 
-    console.log('Profile Trigger:', profileTrigger);
-    console.log('Upload Panel:', uploadSidePanel);
-    console.log('Panel Overlay:', panelOverlay);
-
     // Open side panel when profile is clicked
     profileTrigger.addEventListener('click', function() {
-        console.log('Profile clicked!');
         uploadSidePanel.classList.add('active');
         panelOverlay.classList.add('active');
-        loadProfilePicture(); // ✅ Load current profile picture
+        loadProfilePicture();
     });
 
     // Close side panel
@@ -891,18 +907,24 @@ document.addEventListener('DOMContentLoaded', function() {
         panelOverlay.classList.remove('active');
     });
 
-    // ✅ LOAD PROFILE PICTURE ON PAGE LOAD
+    // ✅ LOAD PROFILE PICTURE
     function loadProfilePicture() {
         const savedPhoto = localStorage.getItem('profilePhoto');
         if (savedPhoto) {
             // Update profile circle
             profileIcon.style.display = 'none';
-            profileTrigger.innerHTML = `<img src="${savedPhoto}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+            profileTrigger.innerHTML = <img src="${savedPhoto}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
             
             // Update preview in panel
             document.getElementById('currentProfileImage').src = savedPhoto;
             document.getElementById('currentProfileImage').style.display = 'block';
             document.getElementById('defaultPreview').style.display = 'none';
+            
+            // Show remove option
+            document.getElementById('removeOption').style.display = 'flex';
+        } else {
+            // Hide remove option if no photo
+            document.getElementById('removeOption').style.display = 'none';
         }
     }
 
@@ -911,6 +933,37 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('fileInput').click();
     });
 
+    // Camera functionality
+    document.getElementById('cameraOption').addEventListener('click', function() {
+        alert('Camera would open here! 📸');
+    });
+
+    // ✅ REMOVE PROFILE PICTURE
+    document.getElementById('removeOption').addEventListener('click', function() {
+        if (confirm('Are you sure you want to remove your profile picture?')) {
+            // Remove from localStorage
+            localStorage.removeItem('profilePhoto');
+            
+            // Reset profile circle to default icon
+            profileIcon.style.display = 'flex';
+            profileTrigger.innerHTML = '<i class="fas fa-user" id="profileIcon"></i>';
+            
+            // Reset preview in panel
+            document.getElementById('currentProfileImage').style.display = 'none';
+            document.getElementById('defaultPreview').style.display = 'flex';
+            
+            // Hide remove option
+            document.getElementById('removeOption').style.display = 'none';
+            
+            alert('Profile picture removed! ✅');
+            
+            // Close panel
+            uploadSidePanel.classList.remove('active');
+            panelOverlay.classList.remove('active');
+        }
+    });
+
+    // File input change
     document.getElementById('fileInput').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -918,17 +971,20 @@ document.addEventListener('DOMContentLoaded', function() {
             reader.onload = function(e) {
                 const imageUrl = e.target.result;
                 
-                // ✅ SAVE TO LOCAL STORAGE
+                // Save to localStorage
                 localStorage.setItem('profilePhoto', imageUrl);
                 
-                // ✅ UPDATE PROFILE CIRCLE IMMEDIATELY
+                // Update profile circle
                 profileIcon.style.display = 'none';
-                profileTrigger.innerHTML = `<img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                profileTrigger.innerHTML = <img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
                 
-                // ✅ UPDATE PREVIEW
+                // Update preview
                 document.getElementById('currentProfileImage').src = imageUrl;
                 document.getElementById('currentProfileImage').style.display = 'block';
                 document.getElementById('defaultPreview').style.display = 'none';
+                
+                // Show remove option
+                document.getElementById('removeOption').style.display = 'flex';
                 
                 alert('Profile picture updated! ✅');
                 
@@ -940,7 +996,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ✅ LOAD PROFILE PICTURE WHEN PAGE LOADS
+    // Load profile picture when page loads
     loadProfilePicture();
 });
 </script>
