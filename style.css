@@ -79,5 +79,65 @@ footer {
   color: white;
   font-size: 14px;
 }
+/* 🔵 ADD THIS CSS - Auth Buttons at Bottom */
+.auth-buttons-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
+.auth-bottom-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.register-bottom-btn {
+    background: #0033cc;
+    color: white;
+}
+
+.google-bottom-btn {
+    background: white;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.login-bottom-btn {
+    background: #28a745;
+    color: white;
+}
+
+.logout-bottom-btn {
+    background: #dc3545;
+    color: white;
+    display: none;
+}
+
+.auth-bottom-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Show logout when logged in */
+.logged-in .logout-bottom-btn {
+    display: flex;
+}
+
+.logged-in .register-bottom-btn,
+.logged-in .google-bottom-btn,
+.logged-in .login-bottom-btn {
+    display: none;
+}
   
