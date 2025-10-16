@@ -37,118 +37,73 @@
     <div class="profile-pic" id="profileTrigger">
         <i class="fas fa-user" id="profileIcon"></i>
     </div>
-    
-    <!-- Profile Modal -->
-    <div class="profile-modal" id="profileModal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            
-            <!-- User Profile Section (Logged In) -->
-            <div class="user-profile-section" id="userProfileSection">
-                <div class="profile-large">
-                    <img id="largeProfileImage" src="" alt="Profile">
-                    <div class="profile-default" id="defaultProfile">
-                        <i class="fas fa-user"></i>
-                    </div>
-                </div>
-                
-                <h3 id="userNameDisplay">User Name</h3>
-                <p id="userEmailDisplay">user@example.com</p>
-                
-                <div class="profile-actions">
-                    <button class="upload-btn" id="uploadGallery">
-                        <i class="fas fa-image"></i> Upload from Gallery
-                    </button>
-                    <button class="upload-btn" id="uploadCamera">
-                        <i class="fas fa-camera"></i> Take Photo
-                    </button>
-                    <button class="logout-btn" id="logoutBtn">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Guest Section (Not Logged In) -->
-            <div class="guest-section" id="guestSection">
-                <div class="guest-icon">
-                    <i class="fas fa-user-circle"></i>
-                </div>
-                <h3>Welcome!</h3>
-                <p>Sign in to access all features</p>
-                
-                <div class="auth-actions">
-                    <button class="auth-btn register-btn" id="registerBtn">
-                        <i class="fas fa-user-plus"></i> Register
-                    </button>
-                    <button class="auth-btn google-btn" id="googleSignIn">
-                        <i class="fab fa-google"></i> Sign in with Google
-                    </button>
-                    <button class="auth-btn logoin-btn" id="loginBtn">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </button>
-                </div>
-            </div>
-            
-            <input type="file" id="fileInput" accept="image/*" style="display: none;">
-<div class="profile-container">
-    <div class="profile-pic" id="profileTrigger">
-        <i class="fas fa-user" id="profileIcon"></i>
-    </div>
-    
-    <!-- Side Panel for Upload Options -->
-    <div class="upload-side-panel" id="uploadSidePanel">
-        <div class="panel-header">
-            <h3>Update Profile</h3>
-            <span class="close-panel" id="closePanel">&times;</span>
-        </div>
-        
-        <div class="panel-content">
-            <!-- Current Profile Preview -->
-            <div class="current-profile">
-                <div class="profile-preview">
-                    <img id="currentProfileImage" src="" alt="Current Profile">
-                    <div class="default-preview" id="defaultPreview">
-                        <i class="fas fa-user"></i>
-                    </div>
-                </div>
-                <p>Current Profile</p>
-            </div>
-            
-            <!-- Upload Options -->
-            <div class="upload-options">
-                <div class="upload-option" id="galleryOption">
-                    <div class="option-icon">
-                        <i class="fas fa-images"></i>
-                    </div>
-                    <div class="option-text">
-                        <h4>Upload from Gallery</h4>
-                        <p>Choose from your photos</p>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-                
-                <div class="upload-option" id="cameraOption">
-                    <div class="option-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <div class="option-text">
-                        <h4>Take Photo</h4>
-                        <p>Use your camera</p>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Hidden File Input -->
-        <input type="file" id="fileInput" accept="image/*" style="display: none;">
-    </div>
-    
-    <!-- Overlay -->
-    <div class="panel-overlay" id="panelOverlay"></div>
 </div>
+<!-- Authentication Modal -->
+<div class="auth-modal" id="authModal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeAuthModal">&times;</span>
+        
+        <div class="auth-options">
+            <button class="auth-btn register-btn" id="registerBtn">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+            
+            <button class="auth-btn google-btn" id="googleBtn">
+                <i class="fab fa-google"></i> Continue with Google
+            </button>
+            
+            <button class="auth-btn login-btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            
+            <button class="auth-btn logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </div>
     </div>
+</div>
+<!-- Upload Side Panel -->
+<div class="upload-side-panel" id="uploadSidePanel">
+    <div class="panel-header">
+        <h3>Update Profile Picture</h3>
+        <span class="close-panel" id="closePanel">&times;</span>
+    </div>
+    
+    <div class="panel-content">
+        <div class="current-profile">
+            <div class="profile-preview">
+                <img id="currentProfileImage" src="" alt="Current Profile">
+                <div class="default-preview" id="defaultPreview">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+            <p>Current Profile</p>
+        </div>
+        
+        <div class="upload-options">
+            <div class="upload-option" id="galleryOption">
+                <div class="option-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="option-text">
+                    <h4>Upload from Gallery</h4>
+                    <p>Choose from your photos</p>
+                </div>
+            </div>
+            
+            <div class="upload-option" id="cameraOption">
+                <div class="option-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <div class="option-text">
+                    <h4>Take Photo</h4>
+                    <p>Use your camera</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
 </div>
 <style>
 /* Profile Circle */
