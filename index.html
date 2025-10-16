@@ -857,12 +857,15 @@ color:white;
 </body>
        <script src="script.js"></script>
 
+</body>
+
 <!-- ✅ INGA NEW JAVASCRIPT CODE PASTE PANNANU -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const profileTrigger = document.getElementById('profileTrigger');
     const uploadSidePanel = document.getElementById('uploadSidePanel');
     const panelOverlay = document.getElementById('panelOverlay');
+    const profileIcon = document.getElementById('profileIcon');
 
     console.log('Profile Trigger:', profileTrigger);
     console.log('Upload Panel:', uploadSidePanel);
@@ -873,6 +876,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Profile clicked!');
         uploadSidePanel.classList.add('active');
         panelOverlay.classList.add('active');
+        loadProfilePicture(); // ✅ Load current profile picture
     });
 
     // Close side panel
@@ -887,6 +891,21 @@ document.addEventListener('DOMContentLoaded', function() {
         panelOverlay.classList.remove('active');
     });
 
+    // ✅ LOAD PROFILE PICTURE ON PAGE LOAD
+    function loadProfilePicture() {
+        const savedPhoto = localStorage.getItem('profilePhoto');
+        if (savedPhoto) {
+            // Update profile circle
+            profileIcon.style.display = 'none';
+            profileTrigger.innerHTML = `<img src="${savedPhoto}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+            
+            // Update preview in panel
+            document.getElementById('currentProfileImage').src = savedPhoto;
+            document.getElementById('currentProfileImage').style.display = 'block';
+            document.getElementById('defaultPreview').style.display = 'none';
+        }
+    }
+
     // Gallery functionality
     document.getElementById('galleryOption').addEventListener('click', function() {
         document.getElementById('fileInput').click();
@@ -897,14 +916,32 @@ document.addEventListener('DOMContentLoaded', function() {
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                localStorage.setItem('profilePhoto', e.target.result);
+                const imageUrl = e.target.result;
+                
+                // ✅ SAVE TO LOCAL STORAGE
+                localStorage.setItem('profilePhoto', imageUrl);
+                
+                // ✅ UPDATE PROFILE CIRCLE IMMEDIATELY
+                profileIcon.style.display = 'none';
+                profileTrigger.innerHTML = `<img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                
+                // ✅ UPDATE PREVIEW
+                document.getElementById('currentProfileImage').src = imageUrl;
+                document.getElementById('currentProfileImage').style.display = 'block';
+                document.getElementById('defaultPreview').style.display = 'none';
+                
                 alert('Profile picture updated! ✅');
+                
+                // Close panel
                 uploadSidePanel.classList.remove('active');
                 panelOverlay.classList.remove('active');
             };
             reader.readAsDataURL(file);
         }
     });
+
+    // ✅ LOAD PROFILE PICTURE WHEN PAGE LOADS
+    loadProfilePicture();
 });
 </script>
      
