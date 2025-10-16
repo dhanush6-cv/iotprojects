@@ -571,6 +571,68 @@ color:white;
   background: #004bcc;
   color: white;
 }
+/* 🔵 Auth Buttons at Bottom of Upload Panel */
+.auth-buttons-bottom {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-bottom-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.register-bottom-btn {
+    background: #0033cc;
+    color: white;
+}
+
+.google-bottom-btn {
+    background: white;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.login-bottom-btn {
+    background: #28a745;
+    color: white;
+}
+
+.logout-bottom-btn {
+    background: #dc3545;
+    color: white;
+    display: none;
+}
+
+.auth-bottom-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Show/Hide based on login status */
+.logged-in .logout-bottom-btn {
+    display: flex;
+}
+
+.logged-in .register-bottom-btn,
+.logged-in .google-bottom-btn,
+.logged-in .login-bottom-btn {
+    display: none;
+}
 </style>
     </div>
 
