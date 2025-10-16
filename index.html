@@ -80,7 +80,7 @@ top:70px;
                 </div>
 </div>
            <!-- ✅ AUTH BUTTONS - OUTSIDE upload options -->
-        <<div class="auth-buttons-bottom">
+        <div class="auth-buttons-bottom">
    <a href="register.html" class="auth-bottom-btn register-bottom-btn">Register</a>
     </div>
     
@@ -531,6 +531,7 @@ text-decoration:none;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </style>
   </header>
+      <div class="panel-overlay" id="panelOverlay"></div>
 
   <main class="project-list">
     <div class="project-item">
@@ -894,7 +895,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Gallery option
+    // Gallery option - Open file selector
     galleryOption.addEventListener('click', function() {
         fileInput.click();
     });
@@ -904,7 +905,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Camera would open here! 📸');
     });
 
-    // File input change
+    // File input change - When user selects a photo
     fileInput.addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -913,33 +914,30 @@ document.addEventListener('DOMContentLoaded', function() {
             reader.onload = function(e) {
                 const imageUrl = e.target.result;
                 
-                // Update profile picture
-                updateProfilePicture(imageUrl);
+                // Update small profile circle
+                profileIcon.style.display = 'none';
+                profileTrigger.innerHTML = <img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
+                
+                // Update large profile preview
+                currentProfileImage.src = imageUrl;
+                currentProfileImage.style.display = 'block';
+                defaultPreview.style.display = 'none';
+                
+                // Save to local storage
+                const user = JSON.parse(localStorage.getItem('user')) || {};
+                user.profilePhoto = imageUrl;
+                localStorage.setItem('user', JSON.stringify(user));
                 
                 // Close side panel
                 closeSidePanel();
                 
+                // Show success message
                 alert('Profile picture updated successfully! ✅');
             };
             
             reader.readAsDataURL(file);
         }
     });
-
-    // Update profile picture
-    function updateProfilePicture(imageUrl) {
-        // Update small profile circle
-        profileIcon.style.display = 'none';
-        profileTrigger.innerHTML = `<img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
-        
-        // Update local storage
-        const user = JSON.parse(localStorage.getItem('user')) || {};
-        user.profilePhoto = imageUrl;
-        localStorage.setItem('user', JSON.stringify(user));
-        
-        // Update current profile preview
-        updateCurrentProfilePreview();
-    }
 
     // Escape key to close panel
     document.addEventListener('keydown', function(event) {
@@ -953,159 +951,4 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Font Awesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Auth buttons
-    const registerBottomBtn = document.getElementById('registerBottomBtn');
-    const googleBottomBtn = document.getElementById('googleBottomBtn');
-    const loginBottomBtn = document.getElementById('loginBottomBtn');
-    const logoutBottomBtn = document.getElementById('logoutBottomBtn');
-
-    // Check login status
-    function checkLoginStatus() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        if (isLoggedIn) {
-            document.body.classList.add('logged-in');
-        } else {
-            document.body.classList.remove('logged-in');
-        }
-    }
-
-    // Google login
-    googleBottomBtn.addEventListener('click', function() {
-        localStorage.setItem('isLoggedIn', 'true');
-        checkLoginStatus();
-        alert('Logged in with Google! 🎉');
-    });
-
-    // Logout
-    logoutBottomBtn.addEventListener('click', function() {
-        localStorage.setItem('isLoggedIn', 'false');
-        checkLoginStatus();
-        alert('Logged out successfully! 👋');
-    });
-
-    // Register
-    registerBottomBtn.addEventListener('click', function() {
-        alert('Redirect to register page');
-    });
-
-    // Login
-    loginBottomBtn.addEventListener('click', function() {
-        alert('Redirect to login page');
-    });
-
-    // Initial check
-    checkLoginStatus();
-});
-document.addEventListener('DOMContentLoaded', function() {
-    const registerBottomBtn = document.getElementById('registerBottomBtn');
-    const googleBottomBtn = document.getElementById('googleBottomBtn');
-    const loginBottomBtn = document.getElementById('loginBottomBtn');
-    const logoutBottomBtn = document.getElementById('logoutBottomBtn');
-
-    // Check login status
-    function checkLoginStatus() {
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        if (isLoggedIn) {
-            document.body.classList.add('logged-in');
-        } else {
-            document.body.classList.remove('logged-in');
-        }
-    }
-
-    // Register button - redirect to register page
-    registerBottomBtn.addEventListener('click', function() {
-        window.location.href = 'register.html';
-    });
-
-    // Google login - simulate Google login
-    googleBottomBtn.addEventListener('click', function() {
-        const googleUser = {
-            username: 'Google User',
-            email: 'googleuser@example.com',
-            profilePhoto: null
-        };
-        
-        localStorage.setItem('user', JSON.stringify(googleUser));
-        localStorage.setItem('isLoggedIn', 'true');
-        checkLoginStatus();
-        
-        alert('Logged in with Google! 🎉');
-        // Auto close the side panel
-        document.getElementById('uploadSidePanel').classList.remove('active');
-        document.getElementById('panelOverlay').classList.remove('active');
-    });
-
-    // Login button - redirect to login page
-    loginBottomBtn.addEventListener('click', function() {
-        window.location.href = 'login.html';
-    });
-
-    // Logout button
-    logoutBottomBtn.addEventListener('click', function() {
-        localStorage.setItem('isLoggedIn', 'false');
-        checkLoginStatus();
-        alert('Logged out successfully! 👋');
-        
-        // Auto close the side panel
-        document.getElementById('uploadSidePanel').classList.remove('active');
-        document.getElementById('panelOverlay').classList.remove('active');
-    });
-
-    // Initial check
-    checkLoginStatus();
-});
-
-
-// Gallery option - Open file selector
-galleryOption.addEventListener('click', function() {
-    fileInput.click();
-});
-
-// Camera option
-cameraOption.addEventListener('click', function() {
-    alert('Camera would open here! 📸');
-});
-
-// File input change - When user selects a photo
-fileInput.addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            const imageUrl = e.target.result;
-            
-            // Update small profile circle
-            profileIcon.style.display = 'none';
-            profileTrigger.innerHTML = <img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
-            
-            // Update large profile preview
-            currentProfileImage.src = imageUrl;
-            currentProfileImage.style.display = 'block';
-            defaultPreview.style.display = 'none';
-            
-            // Save to local storage
-            const user = JSON.parse(localStorage.getItem('user')) || {};
-            user.profilePhoto = imageUrl;
-            localStorage.setItem('user', JSON.stringify(user));
-            
-            // Close side panel
-            closeSidePanel();
-            
-            // Show success message
-            alert('Profile picture updated successfully! ✅');
-        };
-        
-        reader.readAsDataURL(file);
-    }
-});
-
-
-
-
-
-   
-</script>
 </html>
