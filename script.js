@@ -174,3 +174,47 @@ function checkLoginStatus() {
         document.body.classList.remove('logged-in');
     }
 }
+document.addEventListener('DOMContentLoaded', function() {
+    // Auth buttons
+    const registerBottomBtn = document.getElementById('registerBottomBtn');
+    const googleBottomBtn = document.getElementById('googleBottomBtn');
+    const loginBottomBtn = document.getElementById('loginBottomBtn');
+    const logoutBottomBtn = document.getElementById('logoutBottomBtn');
+
+    // Check login status
+    function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (isLoggedIn) {
+            document.body.classList.add('logged-in');
+        } else {
+            document.body.classList.remove('logged-in');
+        }
+    }
+
+    // Google login
+    googleBottomBtn.addEventListener('click', function() {
+        localStorage.setItem('isLoggedIn', 'true');
+        checkLoginStatus();
+        alert('Logged in with Google! 🎉');
+    });
+
+    // Logout
+    logoutBottomBtn.addEventListener('click', function() {
+        localStorage.setItem('isLoggedIn', 'false');
+        checkLoginStatus();
+        alert('Logged out successfully! 👋');
+    });
+
+    // Register
+    registerBottomBtn.addEventListener('click', function() {
+        alert('Redirect to register page');
+    });
+
+    // Login
+    loginBottomBtn.addEventListener('click', function() {
+        alert('Redirect to login page');
+    });
+
+    // Initial check
+    checkLoginStatus();
+});
