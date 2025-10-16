@@ -130,3 +130,47 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'login.html';
     });
 });
+// Add these to your existing JavaScript
+
+// Bottom auth buttons functionality
+const registerBottomBtn = document.getElementById('registerBottomBtn');
+const googleBottomBtn = document.getElementById('googleBottomBtn');
+const loginBottomBtn = document.getElementById('loginBottomBtn');
+const logoutBottomBtn = document.getElementById('logoutBottomBtn');
+
+// Register bottom button
+registerBottomBtn.addEventListener('click', function() {
+    window.location.href = 'register.html';
+});
+
+// Google bottom button
+googleBottomBtn.addEventListener('click', function() {
+    // Simulate Google login
+    localStorage.setItem('isLoggedIn', 'true');
+    checkLoginStatus();
+    closeAllModals();
+    alert('Logged in with Google! 🎉');
+});
+
+// Login bottom button
+loginBottomBtn.addEventListener('click', function() {
+    window.location.href = 'login.html';
+});
+
+// Logout bottom button
+logoutBottomBtn.addEventListener('click', function() {
+    localStorage.setItem('isLoggedIn', 'false');
+    checkLoginStatus();
+    closeAllModals();
+    alert('Logged out successfully! 👋');
+});
+
+// Update login status for bottom buttons
+function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (isLoggedIn) {
+        document.body.classList.add('logged-in');
+    } else {
+        document.body.classList.remove('logged-in');
+    }
+}
