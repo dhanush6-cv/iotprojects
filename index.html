@@ -34,17 +34,17 @@
     <input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()"/>
 
 <div class="profile-container">
-    <div class="profile-pic">
-        <i class="fas fa-user"></i>  <!-- 👈 Icon CIRCLE-ku ullaye -->
-    </div>
-    <div class="profile-menu">
-      <a href="register.html">Register</a>
-      <a href="login.html">Already Registered?</a>
-<a href="#" onclick="triggerUpload()">Upload from Gallery</a>
-<input type="file" id="fileInput" accept="image/*" style="display:none" onchange="previewProfile(event)">
-    </div>
-</div>
+  <div class="profile-pic">
+    <img id="profilePic" src="images/default-profile.png" alt="Profile">
+    <div class="edit-icon" onclick="openEditMenu()">✏️</div>
+  </div>
 
+  <div class="edit-menu" id="editMenu">
+    <p>Edit Profile</p>
+    <button onclick="triggerUpload()">Upload from Gallery</button>
+    <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="previewProfile(event)">
+  </div>
+</div>
 <style>
 .profile-container {
   position: absolute;
