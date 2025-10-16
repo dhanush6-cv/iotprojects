@@ -1174,74 +1174,105 @@ color:white;
 
 <!-- Font Awesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-       <script src="script.js"></script>
+     
+</body>
+<script src="script.js"></script>
 </body>
 
-<!-- ✅ INGA NEW JAVASCRIPT CODE PASTE PANNANU -->
 <script>
+// Simple working code
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔵 JavaScript loaded');
-    
-    // Get elements
-    const profileTrigger = document.getElementById('profileTrigger');
-    const uploadSidePanel = document.getElementById('uploadSidePanel');
-    const closePanel = document.getElementById('closePanel');
-    const panelOverlay = document.getElementById('panelOverlay');
-    
-    // Check if elements exist
-    if (!profileTrigger) console.error('❌ Profile trigger not found');
-    if (!uploadSidePanel) console.error('❌ Upload panel not found');
-    if (!panelOverlay) console.error('❌ Panel overlay not found');
-    
-    console.log('Elements:', { profileTrigger, uploadSidePanel, panelOverlay });
-    
-    // ✅ PROFILE CLICK - OPEN PANEL
-    profileTrigger.addEventListener('click', function() {
-        console.log('🟢 Profile icon clicked - Opening panel');
-        uploadSidePanel.classList.add('active');
-        panelOverlay.classList.add('active');
+    // Profile click - open panel
+    document.getElementById('profileTrigger').addEventListener('click', function() {
+        document.getElementById('uploadSidePanel').style.right = '0';
+        document.getElementById('panelOverlay').style.display = 'block';
     });
+
+    // Close panel
+    function closePanel() {
+        document.getElementById('uploadSidePanel').style.right = '-400px';
+        document.getElementById('panelOverlay').style.display = 'none';
+    }
     
-    // ✅ CLOSE PANEL
-    closePanel.addEventListener('click', function() {
-        console.log('🔴 Close button clicked');
-        uploadSidePanel.classList.remove('active');
-        panelOverlay.classList.remove('active');
-    });
-    
-    // ✅ CLOSE ON OVERLAY CLICK
-    panelOverlay.addEventListener('click', function() {
-        console.log('🔴 Overlay clicked');
-        uploadSidePanel.classList.remove('active');
-        panelOverlay.classList.remove('active');
-    });
-    
-    // ✅ GALLERY FUNCTION
+    document.getElementById('closePanel').addEventListener('click', closePanel);
+    document.getElementById('panelOverlay').addEventListener('click', closePanel);
+
+    // Gallery
     document.getElementById('galleryOption').addEventListener('click', function() {
-        console.log('📁 Gallery option clicked');
         document.getElementById('fileInput').click();
     });
-    
-    // ✅ CAMERA FUNCTION  
+
+    // Camera
     document.getElementById('cameraOption').addEventListener('click', function() {
-        console.log('📸 Camera option clicked');
         alert('Camera would open here!');
     });
-    
-    // ✅ FILE SELECT
+
+    // File select - PHOTO SAVE
     document.getElementById('fileInput').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
-            console.log('🖼️ File selected:', file.name);
-            alert('Photo selected: ' + file.name);
-            
-            // Close panel
-            uploadSidePanel.classList.remove('active');
-            panelOverlay.classList.remove('active');
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                
+                // SAVE TO STORAGE
+                localStorage.setItem('profilePhoto', imageUrl);
+                
+                // UPDATE PROFILE CIRCLE
+                document.getElementById('profileIcon').style.display = 'none';
+                document.getElementById('profileTrigger').innerHTML = 
+                    `<img src="${imageUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+                
+                // UPDATE PANEL PREVIEW
+                document.getElementById('currentProfileImage').src = imageUrl;
+                document.getElementById('currentProfileImage').style.display = 'block';
+                document.getElementById('defaultPreview').style.display = 'none';
+                
+                // SHOW REMOVE OPTION
+                document.getElementById('removeOption').style.display = 'flex';
+                
+                alert('Profile picture saved! ✅');
+                closePanel();
+            };
+            reader.readAsDataURL(file);
         }
     });
-    
-    console.log('✅ All event listeners added');
+
+    // REMOVE PHOTO
+    document.getElementById('removeOption').addEventListener('click', function() {
+        if (confirm('Remove profile picture?')) {
+            // REMOVE FROM STORAGE
+            localStorage.removeItem('profilePhoto');
+            
+            // RESET PROFILE CIRCLE
+            document.getElementById('profileTrigger').innerHTML = 
+                '<i class="fas fa-user" id="profileIcon"></i>';
+            document.getElementById('profileIcon').style.display = 'flex';
+            
+            // RESET PANEL PREVIEW
+            document.getElementById('currentProfileImage').style.display = 'none';
+            document.getElementById('defaultPreview').style.display = 'flex';
+            
+            // HIDE REMOVE OPTION
+            document.getElementById('removeOption').style.display = 'none';
+            
+            alert('Profile picture removed! 🗑️');
+            closePanel();
+        }
+    });
+
+    // LOAD SAVED PHOTO ON PAGE LOAD
+    const savedPhoto = localStorage.getItem('profilePhoto');
+    if (savedPhoto) {
+        document.getElementById('profileIcon').style.display = 'none';
+        document.getElementById('profileTrigger').innerHTML = 
+            `<img src="${savedPhoto}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+        
+        document.getElementById('currentProfileImage').src = savedPhoto;
+        document.getElementById('currentProfileImage').style.display = 'block';
+        document.getElementById('defaultPreview').style.display = 'none';
+        document.getElementById('removeOption').style.display = 'flex';
+    }
 });
 </script>
 
