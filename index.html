@@ -55,25 +55,46 @@
 }
 
 .profile-pic {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;     /* 👈 CIRCLE SHAPE */
-  background: #0033cc;    /* 👈 CIRCLE BACKGROUND COLOR */
-  color: white;           /* 👈 ICON COLOR */
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #0033cc;
+  color: white;
   display: flex;
-  align-items: center;    /* 👈 ICON-A CENTER-LA VACHU */
-  justify-content: center; /* 👈 ICON-A CENTER-LA VACHU */
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  border: 1.5px solid #0033cc;
-  font-size: 16px;        /* 👈 ICON SIZE */
+  border: 2px solid #0033cc;
+  font-size: 18px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
 }
 
-/* Baki ella same */
+/* 👇 Hover panna camera icon varum */
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 10px;
+  padding: 3px;
+  border-radius: 50%;
+  display: none;
+}
+
+.profile-pic:hover .edit-icon {
+  display: block;
+}
+
+/* Menu style same */
 .profile-menu {
   display: none;
   position: absolute;
   right: 0;
-  top: 100%;
+  top: 110%;
   background: white;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
