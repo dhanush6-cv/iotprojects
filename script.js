@@ -11,17 +11,21 @@ function searchProjects() {
     }
   }
 }
-  function triggerUpload() {
-    document.getElementById('fileInput').click();
-  }
+function triggerUpload() {
+  document.getElementById("fileInput").click();
+}
 
-  function previewProfile(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('profilePic').src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
+function previewProfile(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const profilePic = document.querySelector(".profile-pic");
+      profilePic.style.backgroundImage = `url(${e.target.result})`;
+      profilePic.style.backgroundSize = "cover";
+      profilePic.style.backgroundPosition = "center";
+      profilePic.innerHTML = ''; // Remove user icon after upload
+    };
+    reader.readAsDataURL(file);
   }
+}
