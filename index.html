@@ -1178,34 +1178,88 @@ color:white;
 </body>
 
 <script>
-// Simple working code
 document.addEventListener('DOMContentLoaded', function() {
-    // Profile click - open panel
-    document.getElementById('profileTrigger').addEventListener('click', function() {
-        document.getElementById('uploadSidePanel').style.right = '0';
-        document.getElementById('panelOverlay').style.display = 'block';
+    const profileTrigger = document.getElementById('profileTrigger');
+    const uploadSidePanel = document.getElementById('uploadSidePanel');
+    const panelOverlay = document.getElementById('panelOverlay');
+    const profileIcon = document.getElementById('profileIcon');
+
+    // Open side panel when profile is clicked
+    profileTrigger.addEventListener('click', function() {
+        uploadSidePanel.classList.add('active');
+        panelOverlay.classList.add('active');
+        loadProfilePicture();
     });
 
-    // Close panel
-    function closePanel() {
-        document.getElementById('uploadSidePanel').style.right = '-400px';
-        document.getElementById('panelOverlay').style.display = 'none';
-    }
-    
-    document.getElementById('closePanel').addEventListener('click', closePanel);
-    document.getElementById('panelOverlay').addEventListener('click', closePanel);
+    // Close side panel
+    document.getElementById('closePanel').addEventListener('click', function() {
+        uploadSidePanel.classList.remove('active');
+        panelOverlay.classList.remove('active');
+    });
 
-    // Gallery
+    // Close when clicking overlay
+    panelOverlay.addEventListener('click', function() {
+        uploadSidePanel.classList.remove('active');
+        panelOverlay.classList.remove('active');
+    });
+
+    // ✅ LOAD PROFILE PICTURE
+    function loadProfilePicture() {
+        const savedPhoto = localStorage.getItem('profilePhoto');
+        if (savedPhoto) {
+            // Update profile circle
+            profileIcon.style.display = 'none';
+            profileTrigger.innerHTML = <img src="${savedPhoto}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
+            
+            // Update preview in panel
+            document.getElementById('currentProfileImage').src = savedPhoto;
+            document.getElementById('currentProfileImage').style.display = 'block';
+            document.getElementById('defaultPreview').style.display = 'none';
+            
+            // Show remove option
+            document.getElementById('removeOption').style.display = 'flex';
+        } else {
+            // Hide remove option if no photo
+            document.getElementById('removeOption').style.display = 'none';
+        }
+    }
+
+    // Gallery functionality
     document.getElementById('galleryOption').addEventListener('click', function() {
         document.getElementById('fileInput').click();
     });
 
-    // Camera
+    // Camera functionality
     document.getElementById('cameraOption').addEventListener('click', function() {
-        alert('Camera would open here!');
+        alert('Camera would open here! 📸');
     });
 
-    // File select - PHOTO SAVE
+    // ✅ REMOVE PROFILE PICTURE
+    document.getElementById('removeOption').addEventListener('click', function() {
+        if (confirm('Are you sure you want to remove your profile picture?')) {
+            // Remove from localStorage
+            localStorage.removeItem('profilePhoto');
+            
+            // Reset profile circle to default icon
+            profileIcon.style.display = 'flex';
+            profileTrigger.innerHTML = '<i class="fas fa-user" id="profileIcon"></i>';
+            
+            // Reset preview in panel
+            document.getElementById('currentProfileImage').style.display = 'none';
+            document.getElementById('defaultPreview').style.display = 'flex';
+            
+            // Hide remove option
+            document.getElementById('removeOption').style.display = 'none';
+            
+            alert('Profile picture removed! ✅');
+            
+            // Close panel
+            uploadSidePanel.classList.remove('active');
+            panelOverlay.classList.remove('active');
+        }
+    });
+
+    // File input change
     document.getElementById('fileInput').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -1213,65 +1267,33 @@ document.addEventListener('DOMContentLoaded', function() {
             reader.onload = function(e) {
                 const imageUrl = e.target.result;
                 
-                // SAVE TO STORAGE
+                // Save to localStorage
                 localStorage.setItem('profilePhoto', imageUrl);
                 
-                // UPDATE PROFILE CIRCLE
-                document.getElementById('profileIcon').style.display = 'none';
-                document.getElementById('profileTrigger').innerHTML = 
-                    <img src="${imageUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">;
+                // Update profile circle
+                profileIcon.style.display = 'none';
+                profileTrigger.innerHTML = <img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
                 
-                // UPDATE PANEL PREVIEW
+                // Update preview
                 document.getElementById('currentProfileImage').src = imageUrl;
                 document.getElementById('currentProfileImage').style.display = 'block';
                 document.getElementById('defaultPreview').style.display = 'none';
                 
-                // SHOW REMOVE OPTION
+                // Show remove option
                 document.getElementById('removeOption').style.display = 'flex';
                 
-                alert('Profile picture saved! ✅');
-                closePanel();
+                alert('Profile picture updated! ✅');
+                
+                // Close panel
+                uploadSidePanel.classList.remove('active');
+                panelOverlay.classList.remove('active');
             };
             reader.readAsDataURL(file);
         }
     });
 
-    // REMOVE PHOTO
-    document.getElementById('removeOption').addEventListener('click', function() {
-        if (confirm('Remove profile picture?')) {
-            // REMOVE FROM STORAGE
-            localStorage.removeItem('profilePhoto');
-            
-            // RESET PROFILE CIRCLE
-            document.getElementById('profileTrigger').innerHTML = 
-                '<i class="fas fa-user" id="profileIcon"></i>';
-            document.getElementById('profileIcon').style.display = 'flex';
-            
-            // RESET PANEL PREVIEW
-            document.getElementById('currentProfileImage').style.display = 'none';
-            document.getElementById('defaultPreview').style.display = 'flex';
-            
-            // HIDE REMOVE OPTION
-            document.getElementById('removeOption').style.display = 'none';
-            
-            alert('Profile picture removed! 🗑');
-            closePanel();
-        }
-    });
-
-    // LOAD SAVED PHOTO ON PAGE LOAD
-    const savedPhoto = localStorage.getItem('profilePhoto');
-    if (savedPhoto) {
-        document.getElementById('profileIcon').style.display = 'none';
-        document.getElementById('profileTrigger').innerHTML = 
-            <img src="${savedPhoto}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">;
-        
-        document.getElementById('currentProfileImage').src = savedPhoto;
-        document.getElementById('currentProfileImage').style.display = 'block';
-        document.getElementById('defaultPreview').style.display = 'none';
-        document.getElementById('removeOption').style.display = 'flex';
-    }
+    // Load profile picture when page loads
+    loadProfilePicture();
 });
 </script>
-
 </html>
