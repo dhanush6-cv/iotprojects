@@ -880,114 +880,60 @@ color:white;
        <script src="script.js"></script>
 </body>
 
+</body>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔵 JavaScript loaded');
-    
-    // Get elements
-    const profileTrigger = document.getElementById('profileTrigger');
-    const uploadSidePanel = document.getElementById('uploadSidePanel');
-    const closePanel = document.getElementById('closePanel');
-    const panelOverlay = document.getElementById('panelOverlay');
-    const profileIcon = document.getElementById('profileIcon');
-    
-    // ✅ CHECK ELEMENTS EXIST
-    if (!profileTrigger) { 
-        console.error('❌ Profile trigger not found'); 
-        alert('Profile element missing!');
-        return;
-    }
-    if (!uploadSidePanel) { 
-        console.error('❌ Upload panel not found'); 
-        return;
-    }
-    if (!panelOverlay) { 
-        console.error('❌ Panel overlay not found'); 
-        // Create overlay if missing
-        const overlay = document.createElement('div');
-        overlay.className = 'panel-overlay';
-        overlay.id = 'panelOverlay';
-        document.body.appendChild(overlay);
-        console.log('✅ Created missing overlay');
-    }
-    
-    console.log('✅ All elements found');
-    
-    // ✅ SIMPLE PROFILE CLICK
-    profileTrigger.addEventListener('click', function() {
-        console.log('🎯 Profile clicked - Opening panel');
-        uploadSidePanel.style.right = '0px';
-        panelOverlay.style.display = 'block';
-    });
-    
-    // ✅ SIMPLE CLOSE FUNCTIONS
-    closePanel.addEventListener('click', closePanelFunc);
-    panelOverlay.addEventListener('click', closePanelFunc);
-    
-    function closePanelFunc() {
-        console.log('🔴 Closing panel');
-        uploadSidePanel.style.right = '-400px';
-        panelOverlay.style.display = 'none';
-    }
-    
-    // ✅ GALLERY FUNCTION
-    document.getElementById('galleryOption').addEventListener('click', function() {
-        document.getElementById('fileInput').click();
-    });
-    
-    // ✅ CAMERA FUNCTION  
-    document.getElementById('cameraOption').addEventListener('click', function() {
-        alert('Camera would open here!');
-    });
-    
-    // ✅ REMOVE PHOTO
-    document.getElementById('removeOption').addEventListener('click', function() {
-        if (confirm('Remove profile picture?')) {
-            localStorage.removeItem('profilePhoto');
-            profileIcon.style.display = 'flex';
-            profileTrigger.innerHTML = '<i class="fas fa-user" id="profileIcon"></i>';
-            document.getElementById('removeOption').style.display = 'none';
-            alert('Profile picture removed! 🗑');
-            closePanelFunc();
-        }
-    });
-    
-    // ✅ FILE SELECT
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imageUrl = e.target.result;
-                localStorage.setItem('profilePhoto', imageUrl);
-                profileIcon.style.display = 'none';
-                profileTrigger.innerHTML = <img src="${imageUrl}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
-                document.getElementById('currentProfileImage').src = imageUrl;
-                document.getElementById('currentProfileImage').style.display = 'block';
-                document.getElementById('defaultPreview').style.display = 'none';
-                document.getElementById('removeOption').style.display = 'flex';
-                alert('Profile picture updated! ✅');
-                closePanelFunc();
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-    
-    // ✅ LOAD SAVED PHOTO
-    function loadProfilePicture() {
-        const savedPhoto = localStorage.getItem('profilePhoto');
-        if (savedPhoto) {
-            profileIcon.style.display = 'none';
-            profileTrigger.innerHTML = <img src="${savedPhoto}" alt="Profile" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">;
-            document.getElementById('currentProfileImage').src = savedPhoto;
-            document.getElementById('currentProfileImage').style.display = 'block';
-            document.getElementById('defaultPreview').style.display = 'none';
-            document.getElementById('removeOption').style.display = 'flex';
-        }
-    }
-    
-    loadProfilePicture();
-    console.log('✅ All functions ready');
+// Simple working version
+document.getElementById('profileTrigger').addEventListener('click', function() {
+    document.getElementById('uploadSidePanel').style.right = '0';
+    document.getElementById('panelOverlay').style.display = 'block';
 });
+
+document.getElementById('closePanel').addEventListener('click', closePanel);
+document.getElementById('panelOverlay').addEventListener('click', closePanel);
+
+function closePanel() {
+    document.getElementById('uploadSidePanel').style.right = '-400px';
+    document.getElementById('panelOverlay').style.display = 'none';
+}
+
+// Gallery
+document.getElementById('galleryOption').addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+});
+
+// File select
+document.getElementById('fileInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            localStorage.setItem('profilePhoto', e.target.result);
+            document.getElementById('profileIcon').style.display = 'none';
+            document.getElementById('profileTrigger').innerHTML = <img src="${e.target.result}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">;
+            alert('Photo saved!');
+            closePanel();
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Remove photo
+document.getElementById('removeOption').addEventListener('click', function() {
+    localStorage.removeItem('profilePhoto');
+    document.getElementById('profileTrigger').innerHTML = '<i class="fas fa-user" id="profileIcon"></i>';
+    document.getElementById('profileIcon').style.display = 'flex';
+    alert('Photo removed!');
+    closePanel();
+});
+
+// Load saved photo
+const saved = localStorage.getItem('profilePhoto');
+if (saved) {
+    document.getElementById('profileIcon').style.display = 'none';
+    document.getElementById('profileTrigger').innerHTML = <img src="${saved}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">;
+}
 </script>
+
+</html>
 </html>
