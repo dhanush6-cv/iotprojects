@@ -1000,5 +1000,63 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial check
     checkLoginStatus();
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const registerBottomBtn = document.getElementById('registerBottomBtn');
+    const googleBottomBtn = document.getElementById('googleBottomBtn');
+    const loginBottomBtn = document.getElementById('loginBottomBtn');
+    const logoutBottomBtn = document.getElementById('logoutBottomBtn');
+
+    // Check login status
+    function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        if (isLoggedIn) {
+            document.body.classList.add('logged-in');
+        } else {
+            document.body.classList.remove('logged-in');
+        }
+    }
+
+    // Register button - redirect to register page
+    registerBottomBtn.addEventListener('click', function() {
+        window.location.href = 'register.html';
+    });
+
+    // Google login - simulate Google login
+    googleBottomBtn.addEventListener('click', function() {
+        const googleUser = {
+            username: 'Google User',
+            email: 'googleuser@example.com',
+            profilePhoto: null
+        };
+        
+        localStorage.setItem('user', JSON.stringify(googleUser));
+        localStorage.setItem('isLoggedIn', 'true');
+        checkLoginStatus();
+        
+        alert('Logged in with Google! 🎉');
+        // Auto close the side panel
+        document.getElementById('uploadSidePanel').classList.remove('active');
+        document.getElementById('panelOverlay').classList.remove('active');
+    });
+
+    // Login button - redirect to login page
+    loginBottomBtn.addEventListener('click', function() {
+        window.location.href = 'login.html';
+    });
+
+    // Logout button
+    logoutBottomBtn.addEventListener('click', function() {
+        localStorage.setItem('isLoggedIn', 'false');
+        checkLoginStatus();
+        alert('Logged out successfully! 👋');
+        
+        // Auto close the side panel
+        document.getElementById('uploadSidePanel').classList.remove('active');
+        document.getElementById('panelOverlay').classList.remove('active');
+    });
+
+    // Initial check
+    checkLoginStatus();
+});
 </script>
 </html>
